@@ -4,13 +4,14 @@ import initMiroAPI from '../../../utils/initMiroAPI';
 
 // handle redirect with code and exchange it for the access token
 export async function GET(request: NextRequest) {
-  const {miro, userId} = initMiroAPI();
+  const {miro, userId} = await initMiroAPI();
+  console.log(request.nextUrl)
 
   // Make sure the code is in query parameters
   const code = request.nextUrl.searchParams.get('code');
+  const boardId = request.nextUrl.searchParams.get('boardId');
   if (typeof code !== 'string') {
     redirect('/?missing-code');
-    return;
   }
 
   try {
@@ -18,5 +19,5 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     redirect('/?error');
   }
-  redirect(`/`);
+  redirect(`/?auth=redirect&boardId=${boardId}`);
 }

@@ -2,7 +2,7 @@ import {Miro} from '@mirohq/miro-api';
 import {cookies} from 'next/headers';
 import {State} from '@mirohq/miro-api/dist/storage';
 
-const tokensCookie = 'miro_tokens';
+const tokensCookie = 'MIRO_TOKEN';
 
 export default function initMiroAPI() {
   const cookieInstance = cookies();
@@ -20,8 +20,8 @@ export default function initMiroAPI() {
   return {
     miro: new Miro({
       storage: {
-        get: () => {
-          return getCookieValue();
+        get: async () => {
+          return getCookieValue() ?? undefined;
         },
         set: (_, state) => {
           cookieInstance.set(tokensCookie, JSON.stringify(state), {

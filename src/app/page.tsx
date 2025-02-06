@@ -1,57 +1,47 @@
+'use server'
 import React from 'react';
-import {Board} from '@mirohq/miro-api';
-
 import initMiroAPI from '../utils/initMiroAPI';
 import '../assets/style.css';
+import {LoginButton} from "../components/login-button";
+import Link from "next/link";
+import {Shapes} from "../components/shapes";
 
-const getBoards = async () => {
+const getAuthUrl = async () => {
   const {miro, userId} = initMiroAPI();
-
   // redirect to auth url if user has not authorized the app
   if (!userId || !(await miro.isAuthorized(userId))) {
-    return {
-      authUrl: miro.getAuthUrl(),
-    };
+    return miro.getAuthUrl();
   }
-
-  const api = miro.as(userId);
-
-  const boards: Board[] = [];
-  for await (const board of api.getAllBoards()) {
-    boards.push(board);
-  }
-
-  return {
-    boards,
-  };
+  return null
 };
 
-export default async function Page() {
-  const {boards, authUrl} = await getBoards();
-
+export default async function Page({searchParams}: {
+  searchParams: Promise<Record<string, string>>
+}) {
+  const {userId} = initMiroAPI();
+  const params = await searchParams
+  const authUrl = await getAuthUrl();
+  if (authUrl) {
+    return (
+      <div className='p-6 pt-0'>
+        It is required to authorise this app before you are able to use it.
+        <div className='mt-3'>
+          <LoginButton authUrl={authUrl} />
+        </div>
+      </div>
+    )
+  }
+  if (params.auth === 'redirect') {
+    return (
+      <div className='p-6 pt-0'>
+        <h1>Successfully authorised app</h1>
+        <Link className='button button-primary mt-3' href={`https://miro.com/app/dashboard`}>Get started!</Link>
+      </div>
+    )
+  }
   return (
-    <div>
-      <h3>API usage demo</h3>
-      <p className="p-small">API Calls need to be authenticated</p>
-      <p>
-        Apps that use the API usually would run on your own domain. During
-        development, test on http://localhost:3000
-      </p>
-      {authUrl ? (
-        <a className="button button-primary" href={authUrl} target="_blank">
-          Login
-        </a>
-      ) : (
-        <>
-          <p>This is a list of all the boards that your user has access to:</p>
-
-          <ul>
-            {boards?.map((board) => (
-              <li key={board.name}>{board.name}</li>
-            ))}
-          </ul>
-        </>
-      )}
+    <div className='p-6 pt-0'>
+      <Shapes userId={userId} />
     </div>
-  );
+  )
 }
