@@ -20,7 +20,6 @@ export const Shapes = ({userId}: {userId: string}) => {
         if (data.data) setCheck(data.data)
         setLoading(false)
       } catch (e) {
-        console.log(3)
         setLoading(false)
         console.log(e)
       }
