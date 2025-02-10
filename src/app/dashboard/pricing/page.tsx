@@ -23,7 +23,7 @@ const modalLinks: NavLink[] = [
 ]
 
 export default async function Pricing() {
-  const {userId} = await initMiroAPI();
+  const {userId} = initMiroAPI();
   return (
     <div>
       <NavBar links={modalLinks} currentLink='/dashboard/pricing' />

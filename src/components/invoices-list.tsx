@@ -26,15 +26,15 @@ export const InvoicesList = ({uuid}: {uuid: string}) => {
     }
     fetchData()
   }, []);
-  if (loading) return <div>Loading...</div>
+  if (loading) return <Loading />
   if (error) return <FetchError error={error} />
   return (
     <div>
       {invoices ? (
-        <div className='rounded-sm bg-white'>
+        <div className='rounded-sm'>
           {invoices?.data.sort((a, b) => a.created + b.created).map((invoice, index) => {
             return (
-              <div className='border-b-2 p-3 flex justify-between items-center' key={`invoice-${index}`}>
+              <div className='bg-white mb-3 flex justify-between items-center shadow rounded-sm p-3' key={`invoice-${index}`}>
                 <div>
                   {invoice.effective_at ? (
                     <span>{format(new Date(invoice.effective_at * 1000), "d LLL yyy")}</span>
@@ -57,6 +57,26 @@ export const InvoicesList = ({uuid}: {uuid: string}) => {
           })}
         </div>
       ): null}
+    </div>
+  )
+}
+
+export const Loading = () => {
+  return (
+    <div>
+      {[...new Array(2)].map((_, index) => (
+        <div className="shadow bg-white mb-3 flex justify-between items-center rounded-sm p-3" key={`loading-${index}`}>
+          <div className="animate-pulse flex justify-between w-full">
+            <div className='flex'>
+              <div className="mr-2 h-2 bg-slate-300 rounded w-[100px]"></div>
+            </div>
+            <div className='flex'>
+              <div className="mr-2 h-2 bg-slate-300 rounded w-[20px]"></div>
+              <div className="h-2 bg-slate-300 rounded w-[50px]"></div>
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
   )
 }

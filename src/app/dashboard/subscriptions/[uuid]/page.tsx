@@ -9,7 +9,7 @@ export const metadata = {
 export default async function SubscriptionPage({ params }: { params: Promise<{ uuid: string }> }) {
   const { uuid } = await params
   return (
-    <div className='max-w-[1000px] m-auto text-sm'>
+    <div className='text-sm bg-gray-100 p-6'>
       <SubscriptionView uuid={uuid} />
       <div className='mt-6'>
         <h2 className='text-2xl font-bold text-gray-900'>Invoices</h2>
