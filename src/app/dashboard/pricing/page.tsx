@@ -16,10 +16,7 @@ const modalLinks: NavLink[] = [
     label: 'Subscriptions',
     url: '/dashboard/subscriptions',
   },
-  {
-    label: 'Other demos',
-    url: '/',
-  }
+
 ]
 
 export default async function Pricing() {

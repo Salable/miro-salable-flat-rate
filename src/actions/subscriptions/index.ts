@@ -140,7 +140,7 @@ export async function getSubscriptionInvoices(uuid: string, boardId: string): Pr
 
 export const changeSubscription = async (subscriptionUuid: string, planUuid: string) => {
   try {
-    await salable.subscriptions.changePlan(subscriptionUuid, {planUuid})
+    await salable.subscriptions.changePlan(subscriptionUuid, {planUuid, proration: 'always_invoice'});
     await new Promise<void>(async (resolve) => {
       while (true) {
         try {

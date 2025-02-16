@@ -19,7 +19,6 @@ export const PricingTable = ({userId}: {userId: string}) => {
     async function fetchData() {
       try {
         const boardInfo = await miro.board.getInfo()
-        console.log(await miro.board.getUserInfo())
         const isBoardOwnerData = await isBoardOwner(boardInfo.id)
         if (isBoardOwnerData.error) setError(isBoardOwnerData.error)
         if (isBoardOwnerData.data !== null) setIsOwner(isBoardOwnerData.data)
@@ -58,8 +57,8 @@ export const PricingTable = ({userId}: {userId: string}) => {
           </div>
           <BasicPlanPricingTableButton
             isBoardOwner={isOwner}
-            hasSubscriptions={!!check?.capabilities && check.capabilities.filter((c) => ['basic_1', 'pro_1'].includes(c.capability)).length > 0}
-            isSubscribed={!!check?.capabilities.find((c) => c.capability === 'basic_1')}
+            hasSubscriptions={!!check?.capabilities && check.capabilities.filter((c) => ['basic', 'pro'].includes(c.capability)).length > 0}
+            isSubscribed={!!check?.capabilities.find((c) => c.capability === 'basic')}
           />
         </div>
         <div className='p-6 rounded-lg bg-white shadow flex-col mb-6 md:mb-0'>
@@ -82,8 +81,8 @@ export const PricingTable = ({userId}: {userId: string}) => {
           </div>
           <ProPlanPricingTableButton
             isBoardOwner={isOwner}
-            hasSubscriptions={!!check?.capabilities && check.capabilities.filter((c) => ['basic_1', 'pro_1'].includes(c.capability)).length > 0}
-            isSubscribed={!!check?.capabilities.find((c) => c.capability === 'pro_1')}
+            hasSubscriptions={!!check?.capabilities && check.capabilities.filter((c) => ['basic', 'pro'].includes(c.capability)).length > 0}
+            isSubscribed={!!check?.capabilities.find((c) => c.capability === 'pro')}
           />
         </div>
 
@@ -107,7 +106,7 @@ export const PricingTable = ({userId}: {userId: string}) => {
           </div>
           <BoardPlanPricingTableButton
             isBoardOwner={isOwner}
-            isSubscribed={!!check?.capabilities.find((c) => c.capability === 'board_1')}
+            isSubscribed={!!check?.capabilities.find((c) => c.capability === 'board')}
           />
         </div>
 
