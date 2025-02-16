@@ -7,7 +7,7 @@ export type NavLink = {
 export const NavBar = ({links, currentLink}: {links: NavLink[], currentLink: string}) => {
 
   return (
-    <div className={`grid grid-cols-${links.length} bg-gray-300 border-2 border-gray-300 rounded-md mb-6 border-solid`}>
+    <div className={`grid grid-cols-2 bg-gray-300 border-2 border-gray-300 rounded-md mb-6 border-solid`}>
       {links.map((link, i) => (
         <Link
           href={link.url}

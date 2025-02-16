@@ -135,7 +135,7 @@ const BasicPlanPricingTableButton = ({isBoardOwner, isSubscribed, hasSubscriptio
   }
   return (
     <a
-      className={`p-4 rounded-md leading-none font-light transition flex items-center justify-center w-full bg-blue-700 hover:bg-blue-900 text-white cursor-pointer border-solid border-blue-700`}
+      className={`p-4 rounded-md leading-none font-light text-sm transition flex items-center justify-center w-full bg-blue-700 hover:bg-blue-900 text-white cursor-pointer border-solid border-blue-700`}
       href="/dashboard/subscriptions"
     >
       Downgrade to Basic
